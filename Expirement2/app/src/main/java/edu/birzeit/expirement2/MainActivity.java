@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         for(Customer objCustomer : Customer.customersArrayList){
             TextView txtCustomerInfo = new TextView(this);
-            txtCustomerInfo.setTextAppearance(androidx.appcompat.R.style.TextAppearance_AppCompat_Display2);
-            txtCustomerInfo.setText(Customer.customersArrayList.toString());
+            txtCustomerInfo.setTextAppearance(androidx.appcompat.R.style.TextAppearance_AppCompat);
+            txtCustomerInfo.setText(objCustomer.toString());
             Button dltButton = new Button(this);
             dltButton.setText("X");
 

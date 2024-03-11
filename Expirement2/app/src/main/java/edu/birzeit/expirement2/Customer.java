@@ -52,9 +52,9 @@ public class Customer {
 
     @Override
     public String toString() {
-        return " CustomerId=" + mCustomerId +
-                ", mName='" + mName + '\n' +
-                ", mPhone='" + mPhone + '\n' +
-                ", mGender='" + mGender;
+        return "Id=" + mCustomerId + '\n' +
+                "Name='" + mName + '\n' +
+                "Phone='" + mPhone + '\n' +
+                "Gender='" + mGender;
     }
 }
