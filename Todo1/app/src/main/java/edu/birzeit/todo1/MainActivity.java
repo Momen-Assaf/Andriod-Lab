@@ -2,6 +2,7 @@ package edu.birzeit.todo1;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,53 +16,164 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    int count = 0, totalQuestions = 5;
-    private TextView timer;
-    private Thread timerThread;
+    int count = 0, totalQuestions = 5, score_player = 0, qNum = 0;
+    private TextView timer, score, question;
+    private Button answer1, answer2, answer3, answer4;
+    private CountDownTimer countDownTimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView score = findViewById(R.id.textView1);
-        timer = findViewById(R.id.timeView);
-        TextView question = findViewById(R.id.questionView);
-        Button answer1 = findViewById(R.id.ans1);
-        Button answer2 = findViewById(R.id.ans2);
-        Button answer3 = findViewById(R.id.ans3);
-        Button answer4 = findViewById(R.id.ans4);
+
+        score = findViewById(R.id.textView1);
+        score.setText(String.valueOf(score_player));
+
+        timer = findViewById(R.id.textView2);
+        question = findViewById(R.id.questionView);
+
+        answer1 = findViewById(R.id.ans1);
+        answer2 = findViewById(R.id.ans2);
+        answer3 = findViewById(R.id.ans3);
+        answer4 = findViewById(R.id.ans4);
+        setQuestionsAnswers();
 
     }
-    private void startTimerThread() {
-        timerThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (count < totalQuestions) {
-                    for (int i = 10; i > 0; i--) {
-                        final int seconds = i;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                timer.setText(" " + seconds);
-                            }
-                        });
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    count++;
-                }
+    private void startDownTimer(){
+        countDownTimer = new CountDownTimer(10000,1000){
+            public void onTick(long millisUntilFinished){
+                long seconds = millisUntilFinished/1000;
+                timer.setText(String.valueOf(seconds));
+                count++;
             }
-        });
-        timerThread.start();
+            public void onFinish(){
+                answer1.setOnClickListener(null);
+                answer2.setOnClickListener(null);
+                answer3.setOnClickListener(null);
+                answer4.setOnClickListener(null);
+                setQuestionsAnswers();
+            }
+        }.start();
     }
+    private void stopDownTimer(){
+        if (countDownTimer != null) {
+            answer1.setOnClickListener(null);
+            answer2.setOnClickListener(null);
+            answer3.setOnClickListener(null);
+            answer4.setOnClickListener(null);
+            countDownTimer.cancel();
+            countDownTimer = null;
+            setQuestionsAnswers();
+        }
+    }
+    private void setQuestionsAnswers(){
+        switch (qNum){
+            case 1:
+                question.setText("Question 1: What is my Name?");
+                answer1.setText("Momen");
+                answer2.setText("Not Momen");
+                answer3.setText("Also not Momen");
+                answer4.setText("Also not also Momen");
+                stopDownTimer();
+                startDownTimer();
+                qNum++;
+                answer1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        score_player++;
+                        score.setText(String.valueOf(score_player));
+                        answer1.setOnClickListener(null);
+                        stopDownTimer();
+                        setQuestionsAnswers();
+                        startDownTimer();
+                    }
+                });
+                break;
+            case 2:
+                question.setText("Question 2: What is my Univercity id?");
+                answer1.setText("not 1191529");
+                answer2.setText("1191529");
+                answer3.setText("1192222222");
+                answer4.setText("idk");
+                stopDownTimer();
+                startDownTimer();
+                qNum++;
+                answer2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        score_player++;
+                        score.setText(String.valueOf(score_player));
+                        answer2.setOnClickListener(null);
+                        stopDownTimer();
+                        setQuestionsAnswers();
+                        startDownTimer();
+                    }
+                });
+                break;
+            case 3:
+                question.setText("Question 3: What is the capital of France?");
+                answer1.setText("London");
+                answer2.setText("Paris");
+                answer3.setText("Rome");
+                answer4.setText("Berlin");
+                stopDownTimer();
+                startDownTimer();
+                qNum++;
+                answer2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        score_player++;
+                        score.setText(String.valueOf(score_player));
+                        answer2.setOnClickListener(null);
+                        stopDownTimer();
+                        setQuestionsAnswers();
+                        startDownTimer();
+                    }
+                });
+                break;
+            case 4:
+                question.setText("Question 4: What is the tallest mountain in the world?");
+                answer1.setText("Mount Kilimanjaro");
+                answer2.setText("K2");
+                answer3.setText("Mount Everest");
+                answer4.setText("Mount McKinley");
+                stopDownTimer();
+                startDownTimer();
+                qNum++;
+                answer3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        score_player++;
+                        score.setText(String.valueOf(score_player));
+                        answer3.setOnClickListener(null);
+                        stopDownTimer();
+                        setQuestionsAnswers();
+                        startDownTimer();
+                    }
+                });
+                break;
+            case 5:
+                question.setText("Question 5: Who painted the Mona Lisa?");
+                answer1.setText("Leonardo da Vinci");
+                answer2.setText("Vincent van Gogh");
+                answer3.setText("Pablo Picasso");
+                answer4.setText("Mount Michelangelo");
+                stopDownTimer();
+                startDownTimer();
+                qNum++;
+                answer1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        score_player++;
+                        score.setText(String.valueOf(score_player));
+                        answer1.setOnClickListener(null);
+                        stopDownTimer();
+                        setQuestionsAnswers();
+                        startDownTimer();
+                    }
+                });
+                break;
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (timerThread != null && timerThread.isAlive()) {
-            timerThread.interrupt();
         }
     }
 }
