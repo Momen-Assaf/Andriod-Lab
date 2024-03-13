@@ -16,7 +16,7 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    int count = 0, totalQuestions = 5, score_player = 0, qNum = 0;
+    int count = 0, totalQuestions = 5, score_player = 0, qNum = 1;
     private TextView timer, score, question;
     private Button answer1, answer2, answer3, answer4;
     private CountDownTimer countDownTimer;
@@ -47,24 +47,28 @@ public class MainActivity extends AppCompatActivity {
                 count++;
             }
             public void onFinish(){
-                answer1.setOnClickListener(null);
-                answer2.setOnClickListener(null);
-                answer3.setOnClickListener(null);
-                answer4.setOnClickListener(null);
                 setQuestionsAnswers();
             }
         }.start();
     }
     private void stopDownTimer(){
+        answer1.setOnClickListener(null);
+        answer2.setOnClickListener(null);
+        answer3.setOnClickListener(null);
+        answer4.setOnClickListener(null);
         if (countDownTimer != null) {
-            answer1.setOnClickListener(null);
-            answer2.setOnClickListener(null);
-            answer3.setOnClickListener(null);
-            answer4.setOnClickListener(null);
             countDownTimer.cancel();
             countDownTimer = null;
-            setQuestionsAnswers();
         }
+        setQuestionsAnswers();
+    }
+    private void wrongAnsListen(Button answer){
+        answer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopDownTimer();
+            }
+        });
     }
     private void setQuestionsAnswers(){
         switch (qNum){
@@ -74,18 +78,17 @@ public class MainActivity extends AppCompatActivity {
                 answer2.setText("Not Momen");
                 answer3.setText("Also not Momen");
                 answer4.setText("Also not also Momen");
-                stopDownTimer();
                 startDownTimer();
                 qNum++;
+                wrongAnsListen(answer2);
+                wrongAnsListen(answer3);
+                wrongAnsListen(answer4);
                 answer1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         score_player++;
                         score.setText(String.valueOf(score_player));
-                        answer1.setOnClickListener(null);
                         stopDownTimer();
-                        setQuestionsAnswers();
-                        startDownTimer();
                     }
                 });
                 break;
@@ -95,18 +98,17 @@ public class MainActivity extends AppCompatActivity {
                 answer2.setText("1191529");
                 answer3.setText("1192222222");
                 answer4.setText("idk");
-                stopDownTimer();
                 startDownTimer();
                 qNum++;
+                wrongAnsListen(answer1);
+                wrongAnsListen(answer3);
+                wrongAnsListen(answer4);
                 answer2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         score_player++;
                         score.setText(String.valueOf(score_player));
-                        answer2.setOnClickListener(null);
                         stopDownTimer();
-                        setQuestionsAnswers();
-                        startDownTimer();
                     }
                 });
                 break;
@@ -116,18 +118,17 @@ public class MainActivity extends AppCompatActivity {
                 answer2.setText("Paris");
                 answer3.setText("Rome");
                 answer4.setText("Berlin");
-                stopDownTimer();
                 startDownTimer();
                 qNum++;
+                wrongAnsListen(answer1);
+                wrongAnsListen(answer3);
+                wrongAnsListen(answer4);
                 answer2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         score_player++;
                         score.setText(String.valueOf(score_player));
-                        answer2.setOnClickListener(null);
                         stopDownTimer();
-                        setQuestionsAnswers();
-                        startDownTimer();
                     }
                 });
                 break;
@@ -137,18 +138,17 @@ public class MainActivity extends AppCompatActivity {
                 answer2.setText("K2");
                 answer3.setText("Mount Everest");
                 answer4.setText("Mount McKinley");
-                stopDownTimer();
                 startDownTimer();
                 qNum++;
+                wrongAnsListen(answer1);
+                wrongAnsListen(answer2);
+                wrongAnsListen(answer4);
                 answer3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         score_player++;
                         score.setText(String.valueOf(score_player));
-                        answer3.setOnClickListener(null);
                         stopDownTimer();
-                        setQuestionsAnswers();
-                        startDownTimer();
                     }
                 });
                 break;
@@ -157,8 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 answer1.setText("Leonardo da Vinci");
                 answer2.setText("Vincent van Gogh");
                 answer3.setText("Pablo Picasso");
-                answer4.setText("Mount Michelangelo");
-                stopDownTimer();
+                answer4.setText("Michelangelo");
                 startDownTimer();
                 qNum++;
                 answer1.setOnClickListener(new View.OnClickListener() {
@@ -166,14 +165,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         score_player++;
                         score.setText(String.valueOf(score_player));
-                        answer1.setOnClickListener(null);
                         stopDownTimer();
-                        setQuestionsAnswers();
-                        startDownTimer();
                     }
                 });
                 break;
-
+            default:
+                qNum = 1;
+                break;
         }
     }
 }
