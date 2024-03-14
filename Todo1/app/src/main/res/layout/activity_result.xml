@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:paddingVertical="50sp"
             android:textAlignment="textEnd"
-            android:textSize="25sp" />
+            android:textSize="30sp" />
 
     </LinearLayout>
 
@@ -48,4 +48,14 @@
         android:text="Reset"
         android:textColor="#FFFFFF"
         />
+
+    <TextView
+        android:id="@+id/id_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="50dp"
+        android:text="Momen Assaf 1191529"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </LinearLayout>

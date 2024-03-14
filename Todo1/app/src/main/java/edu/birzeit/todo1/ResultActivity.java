@@ -29,8 +29,14 @@ public class ResultActivity extends AppCompatActivity {
 
         for(Player player : Player.playerArrayList) {
             int res = player.getResult();
-            if (res > 3) outcome.setText("You Won!");
-            else outcome.setText("You Lost!");
+            if (res > 3) {
+                outcome.setText("You Won!");
+                outcome.setTextColor(Color.GREEN);
+            }
+            else {
+                outcome.setText("You Lost!");
+                outcome.setTextColor(Color.RED);
+            }
             result.setText(res + "/5");
         }
 
