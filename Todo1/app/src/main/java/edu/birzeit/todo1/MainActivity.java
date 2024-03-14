@@ -1,5 +1,6 @@
 package edu.birzeit.todo1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -16,7 +17,7 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    int count = 0, totalQuestions = 5, score_player = 0, qNum = 1;
+    int score_player = 0, qNum = 1;
     private TextView timer, score, question;
     private Button answer1, answer2, answer3, answer4;
     private CountDownTimer countDownTimer;
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             public void onTick(long millisUntilFinished){
                 long seconds = millisUntilFinished/1000;
                 timer.setText(String.valueOf(seconds));
-                count++;
             }
             public void onFinish(){
                 setQuestionsAnswers();
@@ -160,6 +160,9 @@ public class MainActivity extends AppCompatActivity {
                 answer4.setText("Michelangelo");
                 startDownTimer();
                 qNum++;
+                wrongAnsListen(answer2);
+                wrongAnsListen(answer3);
+                wrongAnsListen(answer4);
                 answer1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -170,7 +173,12 @@ public class MainActivity extends AppCompatActivity {
                 });
                 break;
             default:
-                qNum = 1;
+                Player player = new Player();
+                player.setResult(score_player);
+                Player.playerArrayList.add(player);
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                MainActivity.this.startActivity(intent);
+                finish();
                 break;
         }
     }
