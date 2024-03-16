@@ -24,39 +24,38 @@
         android:paddingVertical="10dp">
 
         <Button
-            android:id="@+id/ans1"
+            android:id="@+id/dial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
-            android:text="Button" />
+            android:text="Dial" />
 
         <Button
-            android:id="@+id/ans2"
+            android:id="@+id/gmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
-            android:text="Button" />
+            android:text="Gmail" />
 
         <Button
-            android:id="@+id/ans3"
+            android:id="@+id/maps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
-            android:text="Button" />
+            android:text="Google Maps" />
 
         <Button
-            android:id="@+id/ans4"
+            android:id="@+id/toast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="3dp"
-            android:text="Button" />
+            android:text="Toast Message" />
 
         <Button
-            android:id="@+id/ans4"
+            android:id="@+id/notification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
-            android:text="Button" />
+            android:text="Notification" />
 
     </LinearLayout>
 
