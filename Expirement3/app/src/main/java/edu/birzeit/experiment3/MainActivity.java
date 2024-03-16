@@ -22,7 +22,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button dial, gmail, maps, toast, notification;
+    private Button dial, gmail, maps, toast, notification, switchB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         maps = findViewById(R.id.maps);
         toast = findViewById(R.id.toast);
         notification = findViewById(R.id.notification);
+        switchB = findViewById(R.id.switchB);
 
         dial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createNotification();
+            }
+        });
+
+        switchB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent switchActivity = new Intent(MainActivity.this, SwitchActivity.class);
+                MainActivity.this.startActivity(switchActivity);
+                finish();
             }
         });
     }

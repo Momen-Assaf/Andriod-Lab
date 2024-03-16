@@ -57,6 +57,12 @@
             android:layout_marginVertical="3dp"
             android:text="Notification" />
 
+        <Button
+            android:id="@+id/switchB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Switch" />
+
     </LinearLayout>
 
     <TextView
