@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SwitchActivity" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="50sp"
+        android:text="Intents"
+        android:textAlignment="center"
+        android:textSize="45sp" />
+
+    <Button
+        android:id="@+id/switchB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="90dp"
+        android:text="Switch" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="#F44336" />
+
+    <TextView
+        android:id="@+id/id_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="50dp"
+        android:text="Momen Assaf 1191529"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</LinearLayout>
