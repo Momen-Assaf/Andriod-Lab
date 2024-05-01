@@ -16,6 +16,36 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/fAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Fragment" />
+
+        <Button
+            android:id="@+id/fRemove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remove Fragment" />
+
+        <Button
+            android:id="@+id/fAttach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Attach Fragment" />
+
+        <Button
+            android:id="@+id/fDetach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Detach Fragment" />
+    </LinearLayout>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment1"
         android:name="edu.birzeit.expirement7.FirstFragment"

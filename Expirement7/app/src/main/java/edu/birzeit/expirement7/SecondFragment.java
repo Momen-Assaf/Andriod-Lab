@@ -16,15 +16,21 @@ import android.widget.TextView;
  */
 
 public class SecondFragment extends Fragment {
-
     interface communicator {
-        public void respond(String data);
+        public void respond();
+        public void inc();
     }
-    public void changeData(String data){
+
+    String data;
+    int i = 0;
+    public void changeData(){
         TextView textView = (TextView) getActivity().findViewById(R.id.textView);
         textView.setText(data);
     }
-
+    public  void inc(){
+        i++;
+        data = "the button is clicked"+ i +"times";
+    }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,9 +44,6 @@ public class SecondFragment extends Fragment {
     public SecondFragment() {
         // Required empty public constructor
     }
-
-
-
 
     /**
      * Use this factory method to create a new instance of
