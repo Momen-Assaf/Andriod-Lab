@@ -21,7 +21,6 @@ public class PatientController {
 
     @GetMapping("patients/{patientId}")
     public Patient getPatient(@PathVariable long patientId){
-        System.out.println(patientId);
         return patientService.getPatient(patientId);
     }
 
@@ -40,7 +39,7 @@ public class PatientController {
         return patientService.releasePatient(patientId);
     }
 
-    @PostMapping("/patients/{doctorId}")
+    @PostMapping("/assign/{doctorId}")
     public boolean assignDoctor(@PathVariable long doctorId, @RequestBody long patientId){
         return patientService.assignDoctor(doctorId,patientId);
     }

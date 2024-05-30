@@ -13,7 +13,7 @@ public class PatientService {
     private final DoctorService doctorService;
     private ArrayList<Patient> patients = new ArrayList<Patient>(Arrays.asList(
             new Patient(1L,"Momen Assaf",32.2,false, new ArrayList<Long>(Arrays.asList(1L,2L))),
-            new Patient(2L, "Salameh", 2.0, true,new ArrayList<Long>(Arrays.asList(1L)))
+            new Patient(2L, "Salameh", 2.0, false, new ArrayList<Long>(Arrays.asList(1L)))
     ));
 
     public PatientService(DoctorService doctorService) {
@@ -46,10 +46,17 @@ public class PatientService {
     }
 
     public boolean releasePatient(long id) {
-        for(int i = 0; i < patients.size(); i++){
-            if(patients.get(i).getId() == id){
-                patients.get(i).setCured(true);
-                patients.get(i).setDoctors(new ArrayList<Long>());
+        for (Patient patient : patients) {// remove patient from doctor patients as well
+            if (patient.getId() == id) {
+                patient.setCured(true);
+
+                for (Long doctorId : patient.getDoctors()) {
+                    Doctor doctor = doctorService.getDoctor(doctorId);
+                    if (doctor != null) {
+                        doctor.setCurrentPatients(doctor.getCurrentPatients() - 1);
+                    }
+                }
+                patient.setDoctors(new ArrayList<Long>());
                 return true;
             }
         }
