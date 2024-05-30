@@ -1,5 +1,6 @@
 package edu.student.todo4.services;
 
+import edu.student.todo4.models.Doctor;
 import edu.student.todo4.models.Patient;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +10,15 @@ import java.util.Arrays;
 
 @Service
 public class PatientService {
+    private final DoctorService doctorService;
     private ArrayList<Patient> patients = new ArrayList<Patient>(Arrays.asList(
             new Patient(1L,"Momen Assaf",32.2,false, new ArrayList<Long>(Arrays.asList(1L,2L))),
-            new Patient(2L, "Salameh", 2, true,new ArrayList<Long>(Arrays.asList(1L)))
+            new Patient(2L, "Salameh", 2.0, true,new ArrayList<Long>(Arrays.asList(1L)))
     ));
+
+    public PatientService(DoctorService doctorService) {
+        this.doctorService = doctorService;
+    }
 
     public ArrayList<Patient> getPatients() {
         return this.patients;
@@ -44,6 +50,24 @@ public class PatientService {
             if(patients.get(i).getId() == id){
                 patients.get(i).setCured(true);
                 patients.get(i).setDoctors(new ArrayList<Long>());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean assignDoctor(long doctorId, long patientId){
+        Doctor doctor = doctorService.getDoctor(doctorId);
+        Patient patient = getPatient(patientId);
+
+        if (doctor == null || patient == null) {
+            return false;
+        }
+
+        if(doctor.getExperience() >= patient.getIllnessExperienceRequirement()){
+            if(doctor.getCurrentPatients() < doctor.getMaxPatients()){
+                doctor.setCurrentPatients(doctor.getCurrentPatients()+1);
+                patient.getDoctors().add(doctorId);
                 return true;
             }
         }

@@ -39,4 +39,9 @@ public class PatientController {
     public boolean releasePatient(@PathVariable long patientId){
         return patientService.releasePatient(patientId);
     }
+
+    @PostMapping("/patients/{doctorId}")
+    public boolean assignDoctor(@PathVariable long doctorId, @RequestBody long patientId){
+        return patientService.assignDoctor(doctorId,patientId);
+    }
 }
