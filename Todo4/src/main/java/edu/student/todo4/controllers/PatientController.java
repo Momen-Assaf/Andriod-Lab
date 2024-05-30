@@ -5,8 +5,6 @@ import edu.student.todo4.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import edu.student.todo4.services.PatientService;
-
 import java.util.ArrayList;
 
 @RestController
