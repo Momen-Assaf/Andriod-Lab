@@ -27,4 +27,24 @@ public class PatientService {
         return "There is no such patient";
     }
 
+    public boolean deletePatient(long id) {
+        for(int i = 0; i < patients.size(); i++){
+            if(patients.get(i).getId() == id){
+                patients.remove(patients.get(i));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean releasePatient(long id) {
+        for(int i = 0; i < patients.size(); i++){
+            if(patients.get(i).getId() == id){
+                patients.get(i).setCured(true);
+                patients.get(i).setDoctors(new ArrayList<Long>());
+                return true;
+            }
+        }
+        return false;
+    }
 }
