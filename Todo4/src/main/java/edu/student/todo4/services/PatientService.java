@@ -1,11 +1,13 @@
 package edu.student.todo4.services;
 
 import edu.student.todo4.models.Patient;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+@Service
 public class PatientService {
     private ArrayList<Patient> patients = new ArrayList<Patient>(Arrays.asList(
             new Patient(1L,"Momen Assaf",32.2,false, new ArrayList<Long>(Arrays.asList(1L,2L))),
@@ -20,11 +22,11 @@ public class PatientService {
         return this.patients.add(patient);
     }
 
-    public String getPatient(long id) {
+    public Patient getPatient(long id) {
         for(int i = 0; i < patients.size(); i++){
-            if(patients.get(i).getId() == id)return patients.get(i).toString();
+            if(patients.get(i).getId() == id)return patients.get(i);
         }
-        return "There is no such patient";
+        return null;
     }
 
     public boolean deletePatient(long id) {
