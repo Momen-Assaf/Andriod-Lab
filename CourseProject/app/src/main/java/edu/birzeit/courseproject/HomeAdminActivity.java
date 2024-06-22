@@ -1,5 +1,6 @@
 package edu.birzeit.courseproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
@@ -55,14 +57,20 @@ public class HomeAdminActivity extends AppCompatActivity {
         } else if (id == R.id.nav_add_special_offers) {
             fragment = new AddSpecialOffersFragment();
         } else if (id == R.id.nav_logout) {
-            // TODO: Implement logout functionality
+            Intent intent = new Intent(HomeAdminActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+            }
+        if( fragment != null) {
+            loadFragment(fragment);
         }
-
-        if (fragment != null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, fragment);
-            transaction.commit();
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
+        drawerLayout.closeDrawers();
+    }
+    private void loadFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
     }
 }
