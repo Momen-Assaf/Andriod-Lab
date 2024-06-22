@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_admin_profile"
+        android:title="Admin Profile"
+        android:icon="@drawable/ic_profile"/>
+    <item
+        android:id="@+id/nav_add_admin"
+        android:title="Add Admin"
+        android:icon="@drawable/ic_add_admin"/>
+    <item
+        android:id="@+id/nav_view_orders"
+        android:title="View Orders"
+        android:icon="@drawable/ic_orders"/>
+    <item
+        android:id="@+id/nav_add_special_offers"
+        android:title="Add Special Offers"
+        android:icon="@drawable/ic_offers"/>
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout"
+        android:icon="@drawable/ic_logout"/>
+</menu>
