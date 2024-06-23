@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import edu.birzeit.courseproject.fragments.PizzaMenuFragment;
 import edu.birzeit.courseproject.models.PizzaTypeResponse;
 import edu.birzeit.courseproject.network.ApiService;
 import edu.birzeit.courseproject.network.RetrofitClient;
@@ -20,6 +21,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    public static ArrayList<String> pizzaTypesCache;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PizzaTypeResponse> call, Response<PizzaTypeResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ArrayList<String> pizzaTypes = response.body().getTypes();
-                    Toast.makeText(MainActivity.this, "Pizza types: " + pizzaTypes, Toast.LENGTH_LONG).show();
+                    pizzaTypesCache = response.body().getTypes();
+                    Toast.makeText(MainActivity.this, "Pizza types: " + pizzaTypesCache, Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(MainActivity.this, RegestrationUnitActivity.class);
                     startActivity(intent);
