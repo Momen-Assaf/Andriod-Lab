@@ -63,4 +63,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return null;
     }
+
+    public User getUserByEmail(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("users", new String[]{"email", "phone", "firstName", "lastName", "gender", "password"},
+                "email=?", new String[]{email}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            User user = new User();
+            user.setEmail(cursor.getString(0));
+            user.setPhone(cursor.getString(1));
+            user.setFirstName(cursor.getString(2));
+            user.setLastName(cursor.getString(3));
+            user.setGender(cursor.getString(4));
+            user.setPassword(cursor.getString(5));
+            cursor.close();
+            return user;
+        }
+        return null;
+    }
+
+    public boolean updateUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("phone", user.getPhone());
+        values.put("firstName", user.getFirstName());
+        values.put("lastName", user.getLastName());
+        values.put("gender", user.getGender());
+        values.put("password", user.getPassword());
+
+        int result = db.update("users", values, "email = ?", new String[]{user.getEmail()});
+        db.close();
+        return result > 0;
+    }
+
 }
