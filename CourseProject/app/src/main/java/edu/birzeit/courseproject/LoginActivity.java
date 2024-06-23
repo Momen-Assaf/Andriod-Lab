@@ -3,6 +3,7 @@ package edu.birzeit.courseproject;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,7 +16,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import edu.birzeit.courseproject.database.AdminDatabaseHelper;
 import edu.birzeit.courseproject.database.UserDatabaseHelper;
+import edu.birzeit.courseproject.models.Admin;
 import edu.birzeit.courseproject.models.User;
 
 public class LoginActivity extends AppCompatActivity {
@@ -23,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox cbRememberMe;
     private Button btnLogin;
     private UserDatabaseHelper userDatabaseHelper;
+    private AdminDatabaseHelper adminDatabaseHelper;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -36,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
 
         userDatabaseHelper = new UserDatabaseHelper(this);
+        adminDatabaseHelper = new AdminDatabaseHelper(this);
+
         sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
 
         if (sharedPreferences.getBoolean("rememberMe", false)) {
@@ -61,7 +67,21 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, HomeCustomerActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    Admin admin = adminDatabaseHelper.getAdmin(email,password);
+                    if (admin != null) {
+                        Log.d("LoginActivity", "Admin found: " + admin.getEmail());
+                        if (cbRememberMe.isChecked()) {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("email", email);
+                            editor.putBoolean("rememberMe", true);
+                            editor.apply();
+                        } else {
+                            sharedPreferences.edit().clear().apply();
+                        }
+                        Intent intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
+                        startActivity(intent);
+                    }
+                    else Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });

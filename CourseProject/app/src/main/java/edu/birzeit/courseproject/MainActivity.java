@@ -1,5 +1,7 @@
 package edu.birzeit.courseproject;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import edu.birzeit.courseproject.database.AdminDatabaseHelper;
 import edu.birzeit.courseproject.database.PizzaDatabaseHelper;
+import edu.birzeit.courseproject.models.Admin;
 import edu.birzeit.courseproject.models.PizzaType;
 import edu.birzeit.courseproject.models.PizzaTypeResponse;
 import edu.birzeit.courseproject.network.ApiService;
