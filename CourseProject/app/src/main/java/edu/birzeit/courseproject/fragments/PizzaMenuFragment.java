@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -59,6 +61,14 @@ public class PizzaMenuFragment extends Fragment {
 
         loadPizzaTypes();
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PizzaType selectedPizza = pizzaTypes.get(position);
+                displayPizzaDetails(selectedPizza.getName());
+            }
+        });
+
         return view;
     }
 
@@ -75,7 +85,7 @@ public class PizzaMenuFragment extends Fragment {
                 filteredList.add(pizza);
             } else if (filterType.equals("size")) {
                 filteredList.add(pizza);
-            } else if (filterType.equals("category") && pizza.getCategory().equals("Category")) {
+            } else if (filterType.equals("category") && pizza.getCategory().equals("pizza")) {
                 filteredList.add(pizza);
             }
         }
@@ -88,8 +98,19 @@ public class PizzaMenuFragment extends Fragment {
         for (PizzaType pizza : pizzaList) {
             pizzaNames.add(pizza.getName());
         }
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, pizzaNames);
         listView.setAdapter(adapter);
     }
+
+    private void displayPizzaDetails(String pizzaName) {
+        PizzaType pizza = pizzaDatabaseHelper.getPizzaByName(pizzaName);
+        if (pizza != null) {
+            // Show details in a fragment or dialog
+            // Example: Displaying in a Toast (replace with your preferred method)
+            Toast.makeText(getContext(), "Name: " + pizza.getName() + "\nPrice: $" + pizza.getPrice() + "\nCategory: " + pizza.getCategory(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Pizza details not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

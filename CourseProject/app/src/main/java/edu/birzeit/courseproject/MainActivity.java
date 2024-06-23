@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void savePizzaTypesToDatabase(ArrayList<String> pizzaTypes) {
         for (String type : pizzaTypes) {
-            PizzaType pizzaType = new PizzaType(type, Math.random() * 10 + 5, "Pizza");
+            PizzaType pizzaType = new PizzaType(type, Math.random() * 10 + 5, "pizza");
             pizzaDatabaseHelper.addPizzaType(pizzaType);
         }
     }

@@ -69,4 +69,20 @@ public class PizzaDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return pizzaList;
     }
+
+    public PizzaType getPizzaByName(String pizzaName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        PizzaType pizzaType = null;
+        Cursor cursor = db.query(TABLE_PIZZAS, new String[]{"name", "price", "category"},
+                "name=?", new String[]{pizzaName}, null, null, null);
+        if (cursor.moveToFirst()) {
+            pizzaType = new PizzaType(
+                    cursor.getString(cursor.getColumnIndexOrThrow("name")),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow("price")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("category"))
+            );
+        }
+        cursor.close();
+        return pizzaType;
+    }
 }
