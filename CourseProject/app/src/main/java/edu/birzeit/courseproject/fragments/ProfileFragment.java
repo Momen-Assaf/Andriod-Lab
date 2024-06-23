@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +20,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import edu.birzeit.courseproject.R;
-import edu.birzeit.courseproject.database.DatabaseHelper;
+import edu.birzeit.courseproject.database.UserDatabaseHelper;
 import edu.birzeit.courseproject.models.User;
 
 public class ProfileFragment extends Fragment {
 
     private EditText etFirstName, etLastName, etPhone, etPassword, etConfirmPassword;
     private Button btnUpdate;
-    private DatabaseHelper databaseHelper;
+    private UserDatabaseHelper userDatabaseHelper;
     private User currentUser;
 
     @Nullable
@@ -43,11 +42,11 @@ public class ProfileFragment extends Fragment {
         etConfirmPassword = view.findViewById(R.id.etConfirmPassword);
         btnUpdate = view.findViewById(R.id.btnUpdate);
 
-        databaseHelper = new DatabaseHelper(getContext());
+        userDatabaseHelper = new UserDatabaseHelper(getContext());
         SharedPreferences prefs = getActivity().getSharedPreferences("loginPrefs", getContext().MODE_PRIVATE);
         String email = prefs.getString("email", null);
         if (email != null) {
-            currentUser = databaseHelper.getUserByEmail(email);
+            currentUser = userDatabaseHelper.getUserByEmail(email);
             loadUserData();
         }
 
@@ -58,7 +57,7 @@ public class ProfileFragment extends Fragment {
                 currentUser.setPhone(etPhone.getText().toString());
                 currentUser.setPassword(hashPassword(etPassword.getText().toString()));
 
-                boolean isUpdated = databaseHelper.updateUser(currentUser);
+                boolean isUpdated = userDatabaseHelper.updateUser(currentUser);
                 if (isUpdated) {
                     Toast.makeText(getContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
                 } else {

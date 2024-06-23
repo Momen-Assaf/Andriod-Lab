@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import edu.birzeit.courseproject.fragments.PizzaMenuFragment;
+import edu.birzeit.courseproject.database.PizzaDatabaseHelper;
+import edu.birzeit.courseproject.models.PizzaType;
 import edu.birzeit.courseproject.models.PizzaTypeResponse;
 import edu.birzeit.courseproject.network.ApiService;
 import edu.birzeit.courseproject.network.RetrofitClient;
@@ -22,12 +23,14 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static ArrayList<String> pizzaTypesCache;
+    private PizzaDatabaseHelper pizzaDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        pizzaDatabaseHelper = new PizzaDatabaseHelper(this);
         Button btnFetchPizzaTypes = findViewById(R.id.btnGetStarted);
 
         btnFetchPizzaTypes.setOnClickListener(new View.OnClickListener() {
@@ -44,8 +47,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PizzaTypeResponse> call, Response<PizzaTypeResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    pizzaTypesCache = response.body().getTypes();
+                    ArrayList<String> pizzaTypes = response.body().getTypes();
+                    pizzaTypesCache = pizzaTypes;
                     Toast.makeText(MainActivity.this, "Pizza types: " + pizzaTypesCache, Toast.LENGTH_LONG).show();
+
+                    savePizzaTypesToDatabase(pizzaTypes);
 
                     Intent intent = new Intent(MainActivity.this, RegestrationUnitActivity.class);
                     startActivity(intent);
@@ -61,5 +67,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "Network error: ", t);
             }
         });
+    }
+
+    private void savePizzaTypesToDatabase(ArrayList<String> pizzaTypes) {
+        for (String type : pizzaTypes) {
+            PizzaType pizzaType = new PizzaType(type, Math.random() * 10 + 5, "Pizza");
+            pizzaDatabaseHelper.addPizzaType(pizzaType);
+        }
     }
 }

@@ -15,15 +15,14 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import edu.birzeit.courseproject.database.DatabaseHelper;
-import edu.birzeit.courseproject.fragments.HomeFragment;
+import edu.birzeit.courseproject.database.UserDatabaseHelper;
 import edu.birzeit.courseproject.models.User;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private CheckBox cbRememberMe;
     private Button btnLogin;
-    private DatabaseHelper databaseHelper;
+    private UserDatabaseHelper userDatabaseHelper;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -36,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         cbRememberMe = findViewById(R.id.cbRememberMe);
         btnLogin = findViewById(R.id.btnLogin);
 
-        databaseHelper = new DatabaseHelper(this);
+        userDatabaseHelper = new UserDatabaseHelper(this);
         sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
 
         if (sharedPreferences.getBoolean("rememberMe", false)) {
@@ -49,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = etEmail.getText().toString();
                 String password = hashPassword(etPassword.getText().toString());
-                User user = databaseHelper.getUser(email, password);
+                User user = userDatabaseHelper.getUser(email, password);
                 if (user != null) {
                     if (cbRememberMe.isChecked()) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();

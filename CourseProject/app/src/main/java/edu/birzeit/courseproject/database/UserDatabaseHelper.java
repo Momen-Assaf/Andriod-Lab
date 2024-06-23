@@ -9,24 +9,31 @@ import android.util.Log;
 
 import edu.birzeit.courseproject.models.User;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class UserDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "pizza_app.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TAG = "DatabaseHelper";
+    private static final String TABLE_USERS = "users";
 
-    public DatabaseHelper(Context context) {
+    public UserDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_USERS_TABLE = "CREATE TABLE users (email TEXT PRIMARY KEY, phone TEXT, firstName TEXT, lastName TEXT, gender TEXT, password TEXT)";
+        String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + " (" +
+                "email TEXT PRIMARY KEY, " +
+                "phone TEXT, " +
+                "firstName TEXT, " +
+                "lastName TEXT, " +
+                "gender TEXT, " +
+                "password TEXT)";
         db.execSQL(CREATE_USERS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS users");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         onCreate(db);
     }
 
@@ -95,5 +102,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return result > 0;
     }
-
 }

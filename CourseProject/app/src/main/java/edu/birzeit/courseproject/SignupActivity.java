@@ -17,21 +17,21 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import edu.birzeit.courseproject.database.DatabaseHelper;
+import edu.birzeit.courseproject.database.UserDatabaseHelper;
 import edu.birzeit.courseproject.models.User;
 
 public class SignupActivity extends AppCompatActivity {
     private EditText etEmail, etPhone, etFirstName, etLastName, etPassword, etConfirmPassword;
     private Spinner spinnerGender;
     private Button btnSignUp;
-    private DatabaseHelper databaseHelper;
+    private UserDatabaseHelper userDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        databaseHelper = new DatabaseHelper(this);
+        userDatabaseHelper = new UserDatabaseHelper(this);
 
         etEmail = findViewById(R.id.etEmail);
         etPhone = findViewById(R.id.etPhone);
@@ -58,7 +58,7 @@ public class SignupActivity extends AppCompatActivity {
                     user.setGender(spinnerGender.getSelectedItem().toString());
                     user.setPassword(hashPassword(etPassword.getText().toString()));
 
-                    if (databaseHelper.addUser(user)) {
+                    if (userDatabaseHelper.addUser(user)) {
                         Toast.makeText(SignupActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                         startActivity(intent);
