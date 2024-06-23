@@ -34,7 +34,7 @@ public class OrderFragment extends Fragment {
         listView = view.findViewById(R.id.listViewOrders);
         orderDatabaseHelper = new OrderDatabaseHelper(getContext());
 
-        // Retrieve current user email from SharedPreferences
+
         SharedPreferences prefs = getActivity().getSharedPreferences("loginPrefs", getContext().MODE_PRIVATE);
         String email = prefs.getString("email", null);
 

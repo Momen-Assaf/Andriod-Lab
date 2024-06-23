@@ -13,9 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.birzeit.courseproject.R;
+import edu.birzeit.courseproject.database.FavoriteDatabaseHelper;
 import edu.birzeit.courseproject.database.OrderDatabaseHelper;
 import edu.birzeit.courseproject.database.PizzaDatabaseHelper;
 import edu.birzeit.courseproject.database.UserDatabaseHelper;
+import edu.birzeit.courseproject.models.Favorite;
 import edu.birzeit.courseproject.models.Order;
 import edu.birzeit.courseproject.models.PizzaType;
 import edu.birzeit.courseproject.models.User;
@@ -26,6 +28,7 @@ public class PizzaDetailsFragment extends Fragment {
     private PizzaDatabaseHelper pizzaDatabaseHelper;
     private OrderDatabaseHelper orderDatabaseHelper;
     private UserDatabaseHelper userDatabaseHelper;
+    private FavoriteDatabaseHelper favoriteDatabaseHelper;
     private User currentUser;
 
     public static PizzaDetailsFragment newInstance(String pizzaName) {
@@ -45,6 +48,7 @@ public class PizzaDetailsFragment extends Fragment {
         pizzaDatabaseHelper = new PizzaDatabaseHelper(getContext());
         orderDatabaseHelper = new OrderDatabaseHelper(getContext());
         userDatabaseHelper = new UserDatabaseHelper(getContext());
+        favoriteDatabaseHelper = new FavoriteDatabaseHelper(getContext());
 
         TextView pizzaNameTextView = view.findViewById(R.id.pizzaName);
         TextView pizzaPriceTextView = view.findViewById(R.id.pizzaPrice);
@@ -96,6 +100,8 @@ public class PizzaDetailsFragment extends Fragment {
             Toast.makeText(getContext(), "Error: Unable to add to favorites. Pizza not found.", Toast.LENGTH_SHORT).show();
             return;
         }
+        Favorite favorite = new Favorite(pizza.getName(),currentUser.getEmail(),System.currentTimeMillis());
+        favoriteDatabaseHelper.addFavorite(favorite);
 
         Toast.makeText(getContext(), pizza.getName() + " added to favorites", Toast.LENGTH_SHORT).show();
     }
