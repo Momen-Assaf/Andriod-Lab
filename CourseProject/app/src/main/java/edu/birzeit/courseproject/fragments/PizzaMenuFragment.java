@@ -55,7 +55,7 @@ public class PizzaMenuFragment extends Fragment {
         btnFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterPizzaTypes("pizza");
+                filterPizzaTypes("category");
             }
         });
 
@@ -65,7 +65,7 @@ public class PizzaMenuFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 PizzaType selectedPizza = pizzaTypes.get(position);
-                displayPizzaDetails(selectedPizza.getName());
+                displayPizzaDetails(selectedPizza.getName(), position);
             }
         });
 
@@ -102,12 +102,15 @@ public class PizzaMenuFragment extends Fragment {
         listView.setAdapter(adapter);
     }
 
-    private void displayPizzaDetails(String pizzaName) {
-        PizzaType pizza = pizzaDatabaseHelper.getPizzaByName(pizzaName);
-        if (pizza != null) {
-            // Show details in a fragment or dialog
-            // Example: Displaying in a Toast (replace with your preferred method)
-            Toast.makeText(getContext(), "Name: " + pizza.getName() + "\nPrice: $" + pizza.getPrice() + "\nCategory: " + pizza.getCategory(), Toast.LENGTH_SHORT).show();
+    private void displayPizzaDetails(String pizzaName, int position) {
+        PizzaType selectedPizza = pizzaTypes.get(position);
+        Fragment pizzaDetailsFragment = PizzaDetailsFragment.newInstance(selectedPizza.getName());
+        if (selectedPizza != null) {
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, pizzaDetailsFragment)
+                    .addToBackStack(null)
+                    .commit();
+            Toast.makeText(getContext(), "Name: " + selectedPizza.getName() + "\nPrice: $" + selectedPizza.getPrice() + "\nCategory: " + selectedPizza.getCategory(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "Pizza details not found", Toast.LENGTH_SHORT).show();
         }
