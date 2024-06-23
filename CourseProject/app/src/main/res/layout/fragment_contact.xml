@@ -1,27 +1,50 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:padding="16dp">
 
-    <Button
-        android:id="@+id/btnCallUs"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Call Us"/>
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_alignParentTop="true">
 
-    <Button
-        android:id="@+id/btnFindUs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Find Us"
-        android:layout_marginTop="16dp"/>
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Contact us"
+            android:textSize="24sp" />
+    </androidx.appcompat.widget.Toolbar>
 
-    <Button
-        android:id="@+id/btnEmailUs"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email Us"
-        android:layout_marginTop="16dp"/>
-</LinearLayout>
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/btnCallUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Call Us" />
+
+        <Button
+            android:id="@+id/btnFindUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Find Us" />
+
+        <Button
+            android:id="@+id/btnEmailUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Email Us" />
+    </LinearLayout>
+</RelativeLayout>

@@ -16,7 +16,7 @@ import com.google.android.material.navigation.NavigationView;
 import edu.birzeit.courseproject.fragments.ContactFragment;
 import edu.birzeit.courseproject.fragments.FavoritesFragment;
 import edu.birzeit.courseproject.fragments.HomeFragment;
-import edu.birzeit.courseproject.fragments.OrdersFragment;
+import edu.birzeit.courseproject.fragments.OrderFragment;
 import edu.birzeit.courseproject.fragments.PizzaMenuFragment;
 import edu.birzeit.courseproject.fragments.ProfileFragment;
 import edu.birzeit.courseproject.fragments.SpecialOffersFragment;
@@ -57,7 +57,7 @@ public class HomeCustomerActivity extends AppCompatActivity {
         } else if (id == R.id.nav_pizza_menu) {
             fragment = new PizzaMenuFragment();
         } else if (id == R.id.nav_orders) {
-            fragment = new OrdersFragment();
+            fragment = new OrderFragment();
         } else if (id == R.id.nav_favorites) {
             fragment = new FavoritesFragment();
         } else if (id == R.id.nav_special_offers) {
